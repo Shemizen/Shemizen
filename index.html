@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>ShenzenLabs</title>
+    <style>
+      /* CSS Inline Reset: Boxed container, Grid, iOS Fixes */
+      html, body {
+        overflow-x: clip;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        -webkit-text-size-adjust: 100%;
+      }
+      .container {
+        width: 100%;
+        max-width: 1280px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+      .grid {
+        display: grid;
+      }
+      /* iOS Fixes */
+      button, a, input, select, textarea {
+        -webkit-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        -webkit-tap-highlight-color: transparent;
+      }
+      /* Forced Visibility for Product Catalog */
+      .catalog-force-visible {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+      .catalog-force-visible * {
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+      .catalog-force-visible [hidden],
+      .catalog-force-visible [style*="display: none"] {
+        display: block !important;
+      }
+      /* Branding Lock: Anti-injection */
+      body::before {
+        content: 'ShenzenLabs';
+        display: none !important;
+      }
+    </style>
+    <script>
+      // Branding Lock: Block 'PeptChems' injection
+      document.addEventListener('DOMContentLoaded', () => {
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (mutation.type === 'characterData') {
+              if (mutation.target.textContent && mutation.target.textContent.includes('PeptChems')) {
+                mutation.target.textContent = mutation.target.textContent.replace(/PeptChems/gi, 'ShenzenLabs');
+              }
+            } else if (mutation.type === 'childList') {
+              mutation.addedNodes.forEach((node) => {
+                if (node.nodeType === Node.TEXT_NODE && node.textContent && node.textContent.includes('PeptChems')) {
+                  node.textContent = node.textContent.replace(/PeptChems/gi, 'ShenzenLabs');
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                  const walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT, null, false);
+                  let textNode;
+                  while (textNode = walker.nextNode()) {
+                    if (textNode.textContent && textNode.textContent.includes('PeptChems')) {
+                      textNode.textContent = textNode.textContent.replace(/PeptChems/gi, 'ShenzenLabs');
+                    }
+                  }
+                }
+              });
+            }
+          });
+        });
+        observer.observe(document.documentElement, { childList: true, subtree: true, characterData: true });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

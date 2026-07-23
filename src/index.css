@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&family=Barlow:wght@200;300;400;500&family=Rajdhani:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Barlow", sans-serif;
+  --font-stiff: "Rajdhani", sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-neutral-50 text-neutral-900 antialiased dark:bg-[#0C090A] dark:text-white transition-colors duration-300;
+  }
+  button, a, input, select, textarea {
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+  }
+}
+
+@layer utilities {
+  .bg-blueprint {
+    background-image: linear-gradient(rgba(29, 78, 216, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(29, 78, 216, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .dark .bg-blueprint {
+    background-image: linear-gradient(rgba(6, 182, 212, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.08) 1px, transparent 1px);
+  }
+  .text-ghost {
+    -webkit-text-stroke: 1px rgba(156, 163, 175, 0.3);
+    color: transparent;
+  }
+  .dark .text-ghost {
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15);
+  }
+}
